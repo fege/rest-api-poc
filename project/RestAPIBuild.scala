@@ -2,7 +2,7 @@ import sbt.Defaults.coreDefaultSettings
 import sbt.Keys._
 import sbt._
 
-object RestBuild extends Build {
+object RestAPIBuild extends Build {
 
   lazy val main = Project(id = "rest-api", base = file("."), settings = buildSettings)
 
@@ -14,7 +14,7 @@ object RestBuild extends Build {
 
     libraryDependencies ++= {
       val akkaV = "2.4.0"
-      val sprayV = "1.3.3"
+      val sprayV = "1.3.2"
 
       Seq(
         "com.typesafe.akka" %% "akka-actor" % akkaV,
