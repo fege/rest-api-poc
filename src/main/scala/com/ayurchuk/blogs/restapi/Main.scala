@@ -10,10 +10,10 @@ object Main extends App {
 
   val guidService = system actorOf Props(new GuidServiceActor)
 
-  val guidGeneratorHost = system.settings.config.getString("guid-generator.host")
-  val guidGeneratorPort = system.settings.config.getInt("guid-generator.port")
+  val host = system.settings.config.getString("guid-generator.host")
+  val port = system.settings.config.getInt("guid-generator.port")
 
-  IO(Http) ! Http.Bind(guidService, guidGeneratorHost, guidGeneratorPort)
+  IO(Http) ! Http.Bind(guidService, host, port)
 
   sys.addShutdownHook(system.terminate())
 }
