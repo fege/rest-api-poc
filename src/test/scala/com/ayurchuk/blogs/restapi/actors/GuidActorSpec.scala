@@ -24,5 +24,26 @@ class GuidActorSpec extends TestKit(ActorSystem("GuidActorSpec"))
         }
       }
     }
+
+    "return unique uids" in {
+      within(50 milliseconds) {
+        actorRef ! NewGuid
+
+        var firstUID = ""
+        fishForMessage() {
+          case msg: UID ⇒
+            firstUID = msg.toString
+            msg.id.length == 36
+          case _ ⇒ false
+        }
+
+        actorRef ! NewGuid
+
+        fishForMessage() {
+          case msg: UID ⇒ msg.toString != firstUID
+          case _ ⇒ false
+        }
+      }
+    }
   }
 }
